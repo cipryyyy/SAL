@@ -1,3 +1,9 @@
+/*
+@file main.h
+@date 14 May 2026
+@version 1
+*/
+
 #ifndef INC_MAIN_H
 #define INC_MAIN_H
 

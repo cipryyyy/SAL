@@ -1,7 +1,7 @@
 #include "main.h"
 
 int main(void) {
-    if (setClock() != SYS_OK) error();
+    if (setPLL(8, 200, 2) != SYS_OK) error();
     
     while(1) {
         
@@ -10,6 +10,6 @@ int main(void) {
 
 void error() {
     while (1) {
-        
+
     }
 }
