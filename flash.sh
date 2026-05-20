@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd minkyOS || exit
-
 echo "--- Compiling ---"
 make
 
