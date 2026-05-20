@@ -1,15 +1,20 @@
-#include "GPIO.h"
+/**
+ * @file main.c
+*/
+
+#include "main.h"
 
 void main(void) {
-    GPIOA_Init();
+    GPIO_Init(GPIOA);
+    GPIO_SetPinMode(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT);
 
     while(1) {
-        On();    //Set pin HIGH
-        for (int i = 0; i < 500000; i++) {
+        SetPinHIGH(GPIOA, GPIO_PIN_5);    //Set pin HIGH
+        for (int i = 0; i < 100000; i++) {
             //wait
         }
-        Off();    //Set pin LOW
-        for (int i = 0; i < 500000; i++) {
+        SetPinLOW(GPIOA, GPIO_PIN_5);    //Set pin LOW
+        for (int i = 0; i < 100000; i++) {
             //wait
         }
     }
