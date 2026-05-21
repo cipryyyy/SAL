@@ -12,14 +12,10 @@ void UART2_Init() {
 
     APB1_Enable(APB1_USART2_EN);
 
-    //! Work in progress
-    //FIXED
+    uint32_t APB1_frequency = get_sysCLK()/(get_AHB1_prescaler() * get_APB1_prescaler());
+    uint16_t DIV_Mantissa = (uint16_t)(APB1_frequency/(16 * BAUDRATE));
+    uint8_t  DIV_Fraction = (uint8_t)(((APB1_frequency/(16 * BAUDRATE)) - DIV_Mantissa) * 16);
 
-    //USARTDIV = 50'000'000/16*baudrate
-    //target = 115200 -> 54,25347 -> integer = 54, frac = 0,25347 * 16 ~= 4
-
-    uint16_t DIV_Mantissa = 54;
-    uint8_t  DIV_Fraction = 4;
     uint16_t DIV_Value = (DIV_Mantissa << BRR_MANTISSA_SHIFT | DIV_Fraction << BRR_FRACTION_SHIFT);
 
     USARTx_BRR(USART2_BASE) &= ~(0xFFFFUL);
@@ -29,8 +25,6 @@ void UART2_Init() {
     USARTx_CR2(USART2_BASE) &= ~(0b11 << CR2_STOP_BIT_SHIFT);
 
     USARTx_CR1(USART2_BASE) |= (0b1 << CR1_TX_EN_SHIFT) | (0b1 << CR1_UART_EN_SHIFT);
-
-    //TODO improve
 }
 
 void UART2_WriteChar(char c) {

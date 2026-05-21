@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include "utils/GPIO.h"
+#include "utils/RCC.h"
 #include "utils/container.h"
 
 #define USARTx_SR(USARTx)  *(volatile uint32_t *)(USARTx + 0x00)    // Status
@@ -29,6 +30,8 @@
 
 #define PCE_DISABLE 0b0
 #define PCE_ENABLE 0b1
+
+#define BAUDRATE 115200
 
 void UART2_Init();
 void UART2_WriteChar(char c);
