@@ -21,8 +21,12 @@ void GPIO_Init(uint32_t GPIOx) {
     }
 }
 
-void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t MODE) {
-    GPIOx_MODER(GPIOx) &= ~(0b11UL << (GPIO_PIN * 2));    //Clear bits
-    GPIOx_MODER(GPIOx) |= (MODE << (5 * 2));     //Set as output
+void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode, uint32_t pupd) {
+    GPIOx_MODER(GPIOx) &= ~(0b11UL << (GPIO_PIN << 1));
+    GPIOx_MODER(GPIOx) |= (mode << (GPIO_PIN << 1));
+
+    GPIOx_PUPDR(GPIOx) &= ~(0b11UL << (GPIO_PIN << 1));
+    GPIOx_PUPDR(GPIOx) &= ~(pupd << (GPIO_PIN << 1));
+
     return;
 }

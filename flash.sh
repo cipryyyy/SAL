@@ -1,7 +1,11 @@
 #!/bin/bash
 
+cd SAL
+
 echo "--- Compiling ---"
 make
+
+cd ..
 
 if [ $? -eq 0 ]; then
     echo "--- Flashing ---"

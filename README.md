@@ -45,6 +45,10 @@ OBJS = $(BUILD_DIR)/crt.o \
        $(BUILD_DIR)/FILE.o\
 ```
 
+### FLASH the firmware
+
+Just run `flash.sh` or use `STM32CubeProgramer` with the `.elf` file in `/build`.
+
 ## TODO list
 - [x] GPIO
 - [ ] RCC
