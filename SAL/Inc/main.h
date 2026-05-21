@@ -5,7 +5,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "GPIO.h"
+#include "utils/GPIO.h"
+#include "utils/UART.h"
+#include "utils/RCC.h"
 
 void main(void);
 

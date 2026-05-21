@@ -10,6 +10,8 @@ BUILD_DIR = build
 
 OBJS = $(BUILD_DIR)/crt.o \
        $(BUILD_DIR)/main.o \
+       $(BUILD_DIR)/RCC.o \
+       $(BUILD_DIR)/UART.o \
        $(BUILD_DIR)/GPIO.o
 
 all: $(BUILD_DIR)/app.bin
@@ -22,9 +24,17 @@ $(BUILD_DIR)/main.o: SAL/Src/main.c
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/main.o SAL/Src/main.c
 
-$(BUILD_DIR)/GPIO.o: SAL/Src/GPIO.c
+$(BUILD_DIR)/GPIO.o: SAL/Src/utils/GPIO.c
 	@mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/GPIO.o SAL/Src/GPIO.c
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/GPIO.o SAL/Src/utils/GPIO.c
+
+$(BUILD_DIR)/UART.o: SAL/Src/utils/UART.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/UART.o SAL/Src/utils/UART.c
+
+$(BUILD_DIR)/RCC.o: SAL/Src/utils/RCC.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/RCC.o SAL/Src/utils/RCC.c
 
 $(BUILD_DIR)/app.elf: SAL/linker.ld $(OBJS)
 	$(LD) -T SAL/linker.ld -o $(BUILD_DIR)/app.elf $(OBJS)

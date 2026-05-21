@@ -5,11 +5,12 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 
+//Base addresses
 #define RCC_BASE        0x40023800
 #define GPIO_BASE       0x40020000
+#define FLASH_BASE      0x40023C00
 
-//! Look like shit
-
+//GPIOx PINS
 #define GPIO_PIN_0      0x0
 #define GPIO_PIN_1      0x1
 #define GPIO_PIN_2      0x2

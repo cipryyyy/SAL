@@ -2,7 +2,7 @@
  * @file GPIO.c
 */
 
-#include "GPIO.h"
+#include "utils/GPIO.h"
 
 void GPIO_Init(uint32_t GPIOx) {
     switch (GPIOx) {
@@ -19,10 +19,6 @@ void GPIO_Init(uint32_t GPIOx) {
             RCC_AHB1ENR |= RCC_GPIODEN;
             break;
     }
-
-    //TODO remove harcoded PA5 as output
-    GPIOx_MODER(GPIOx) &= ~(0b11UL << (5 * 2));    //Clear bits
-    GPIOx_MODER(GPIOx) |= (0b01UL << (5 * 2));     //Set as output
 }
 
 void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t MODE) {
