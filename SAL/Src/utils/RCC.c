@@ -62,3 +62,17 @@ void delay(uint32_t ms) {
 
     SYST_CSR = 0;
 }
+
+void delay_microsecond(uint32_t us) {
+    if (frequency == 0) return;
+
+    SYST_RVR = frequency/1000000 - 1;
+    SYST_CVR = 0;
+    SYST_CSR = 0x05;
+
+    for (uint32_t i = 0; i < us; i++) {
+        while (!(SYST_CSR & (1 << SYST_COUNT)));
+    }
+
+    SYST_CSR = 0;
+}

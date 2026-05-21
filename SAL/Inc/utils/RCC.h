@@ -71,4 +71,12 @@ void APB2_prescaler();
 */
 void delay(uint32_t ms);
 
+/**
+    @fn delay_microsecond
+    @brief suspend operations
+    @param us microseconds to wait
+    @return None
+*/
+void delay_microsecond(uint32_t us);
+
 #endif //RCC_H

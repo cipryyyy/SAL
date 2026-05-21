@@ -35,6 +35,7 @@
 //Inline methods
 #define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_ODR(GPIOx) |= (1 << GPIO_PIN))
 #define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) &= ~(1 << GPIO_PIN))
+#define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
 
 /**
     @fn GPIO_Init
