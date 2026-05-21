@@ -6,39 +6,32 @@
 #define GPIO_H
 
 #include <stdint.h>
+#include "utils/RCC.h"
 #include "utils/container.h"
 
-// Registers
+// GPIO Registers
 #define GPIOA               (GPIO_BASE + 0x0)
 #define GPIOB               (GPIO_BASE + 0x400)
 #define GPIOC               (GPIO_BASE + 0x800)
 #define GPIOD               (GPIO_BASE + 0xC00) 
 
-//GPIOx PINS
-#define GPIO_PIN_0      0x0
-#define GPIO_PIN_1      0x1
-#define GPIO_PIN_2      0x2
-#define GPIO_PIN_3      0x3
-#define GPIO_PIN_4      0x4
-#define GPIO_PIN_5      0x5
-#define GPIO_PIN_6      0x6
-#define GPIO_PIN_7      0x7
-#define GPIO_PIN_8      0x8
-#define GPIO_PIN_9      0x9
-#define GPIO_PIN_10     0xA
-#define GPIO_PIN_11     0xB
-#define GPIO_PIN_12     0xC
-#define GPIO_PIN_13     0xD
-#define GPIO_PIN_14     0xE
-#define GPIO_PIN_15     0xF
-
-#define RCC_GPIOAEN         (1 << 0)
-#define RCC_GPIOBEN         (1 << 1)
-#define RCC_GPIOCEN         (1 << 2)
-#define RCC_GPIODEN         (1 << 3) 
-
-// RCC GPIO clock enable
-#define RCC_AHB1ENR         *(volatile uint32_t *)(RCC_BASE + 0x30)
+// GPIOx PINS
+#define GPIO_PIN_0          0x0
+#define GPIO_PIN_1          0x1
+#define GPIO_PIN_2          0x2
+#define GPIO_PIN_3          0x3
+#define GPIO_PIN_4          0x4
+#define GPIO_PIN_5          0x5
+#define GPIO_PIN_6          0x6
+#define GPIO_PIN_7          0x7
+#define GPIO_PIN_8          0x8
+#define GPIO_PIN_9          0x9
+#define GPIO_PIN_10         0xA
+#define GPIO_PIN_11         0xB
+#define GPIO_PIN_12         0xC
+#define GPIO_PIN_13         0xD
+#define GPIO_PIN_14         0xE
+#define GPIO_PIN_15         0xF
 
 // GPIO MODES 
 #define GPIO_MODE_INPUT     0x0UL
@@ -51,17 +44,20 @@
 #define GPIO_PULLUP         0x1UL
 #define GPIO_PULLDOWN       0x2UL
 
-//GPIO Registers
+// GPIO Registers
 #define GPIOx_MODER(GPIOx)  *(volatile uint32_t *)(GPIOx + 0x00)
 #define GPIOx_PUPDR(GPIOx)  *(volatile uint32_t *)(GPIOx + 0x10)
 #define GPIOx_IDR(GPIOx)    *(volatile uint32_t *)(GPIOx + 0x10)
 #define GPIOx_ODR(GPIOx)    *(volatile uint32_t *)(GPIOx + 0x14)
+#define GPIOx_AFRL(GPIOx)   *(volatile uint32_t *)(GPIOx + 0x20)
+#define GPIOx_AFRH(GPIOx)   *(volatile uint32_t *)(GPIOx + 0x20)
 
-//Inline methods
+// Inline methods
 #define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_ODR(GPIOx) |= (1 << GPIO_PIN))
 #define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) &= ~(1 << GPIO_PIN))
 #define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
 #define readPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
+
 /**
     @fn GPIO_Init
     @brief Initialize GPIOx interface
@@ -76,9 +72,28 @@ void GPIO_Init(uint32_t GPIOx);
     @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
     @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
     @param mode Pin Mode
+    @return None
+*/
+void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode);
+
+/**
+    @fn GPIO_SetPUPD
+    @brief Set pull-up or pull-down
+    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
+    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
     @param pupd Pull-up or pull-down
     @return None
 */
-void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode, uint32_t pupd);
+void GPIO_SetPUPD(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t pupd);
+
+/**
+    @fn GPIO_SetAF
+    @brief Set alternative function for pins
+    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
+    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
+    @param AlternateFunction Pull-up or pull-down
+    @return None
+*/
+void GPIO_SetAF(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t AlternateFunction);
 
 #endif //GPIO_H

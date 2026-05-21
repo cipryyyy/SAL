@@ -9,8 +9,9 @@ void main(void) {
     //Setup
     GPIO_Init(GPIOA);
     GPIO_Init(GPIOC);
-    GPIO_SetPinMode(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT, GPIO_NOPULL);
-    GPIO_SetPinMode(GPIOC, GPIO_PIN_13, GPIO_MODE_INPUT, GPIO_PULLDOWN);
+    GPIO_SetPinMode(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT);       //Internal LED
+    GPIO_SetPinMode(GPIOC, GPIO_PIN_13, GPIO_MODE_INPUT);       // Blue button
+    UART2_Init();
     SysCLK_Init(PLLM_DIVIDER(8), PLLN_MULTIPLIER(200), PLLP_DIVIDER_2);
 
     uint8_t pinValue;
@@ -43,6 +44,7 @@ void main(void) {
         } else {
             delay--;
             if (delay == 0) mode = 0;
+            UART2_WriteChar('a');
         }
         counter = 0;
     }
