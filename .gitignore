@@ -4,8 +4,4 @@
 build
 .DS_Store
 .cache
-CMakeFiles
 .clangd
-cmake_install.cmake
-CMakeCache.txt
-Makefile

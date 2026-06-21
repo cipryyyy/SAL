@@ -18,7 +18,7 @@ int main(void) {
     uint8_t mode = 0;
     uint8_t delay = 0;
     uint16_t counter = 0;
-
+    
     //Main Loop
     while(1) {
         pinValue = readPin(GPIOC, GPIO_PIN_13);

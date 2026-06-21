@@ -45,12 +45,12 @@
 #define GPIO_PULLDOWN       0x2UL
 
 // GPIO Registers
-#define GPIOx_MODER(GPIOx)  (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x00))
-#define GPIOx_PUPDR(GPIOx)  (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x0C))
-#define GPIOx_IDR(GPIOx)    (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x10))
-#define GPIOx_ODR(GPIOx)    (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x14))
-#define GPIOx_AFRL(GPIOx)   (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x20))
-#define GPIOx_AFRH(GPIOx)   (*(volatile uint32_t *)(uintptr_t)(GPIOx + 0x24))
+#define GPIOx_MODER(GPIOx)  (*(volatile uint32_t *)(GPIOx + 0x00))
+#define GPIOx_PUPDR(GPIOx)  (*(volatile uint32_t *)(GPIOx + 0x0C))
+#define GPIOx_IDR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x10))
+#define GPIOx_ODR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x14))
+#define GPIOx_AFRL(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x20))
+#define GPIOx_AFRH(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x24))
 
 // Inline methods
 #define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_ODR(GPIOx) |= (1 << GPIO_PIN))

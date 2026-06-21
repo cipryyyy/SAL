@@ -1,0 +1,8 @@
+set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR arm)
+set(CMAKE_C_COMPILER arm-none-eabi-gcc)
+set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(OBJECT_GEN_FLAGS "-mcpu=cortex-m4 -mthumb -mfloat-abi=soft")
+set(CMAKE_C_FLAGS "${OBJECT_GEN_FLAGS}" CACHE INTERNAL "C compiler flags")
+set(CMAKE_ASM_FLAGS "${OBJECT_GEN_FLAGS}" CACHE INTERNAL "ASM compiler flags")
