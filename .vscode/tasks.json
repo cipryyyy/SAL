@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "osx": {
+        "options": {
+            "shell": {
+                "executable": "/bin/zsh",
+                "args": ["-c"]
+            }
+        }
+    },
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "CMake: build",
+            "command": "cmake --build build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "CubeProg: Flash project (SWD)",
+            "command": "STM32_Programmer_CLI",
+            "args": [
+                "--connect",
+                "port=swd",
+                "--download",
+                "${workspaceFolder}/build/main",
+                "-hardRst",
+                "-rst",
+                "--start"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build + Flash",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "CMake: build",
+                "CubeProg: Flash project (SWD)"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

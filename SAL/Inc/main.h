@@ -9,6 +9,6 @@
 #include "utils/UART.h"
 #include "utils/RCC.h"
 
-void main(void);
+int main(void);
 
 #endif //MAIN_H

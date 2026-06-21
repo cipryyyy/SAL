@@ -5,7 +5,7 @@
 
 #include "main.h"
 
-void main(void) {
+int main(void) {
     //Setup
     GPIO_Init(GPIOA);
     GPIO_Init(GPIOC);
@@ -48,4 +48,6 @@ void main(void) {
         }
         counter = 0;
     }
+
+    return 0;
 }
