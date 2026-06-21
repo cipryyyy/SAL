@@ -10,6 +10,8 @@
 #include "utils/UART.h"
 #include "utils/RCC.h"
 
+#include <string>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

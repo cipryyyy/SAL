@@ -4,7 +4,7 @@ Designed for STM32NUCLEO-F411
 ## Structure
 ```
 ├── README.md
-├── SAL
+├── Kernel
 │   ├── Inc
 │   │   ├── Main files headers
 │   │   └── utils
