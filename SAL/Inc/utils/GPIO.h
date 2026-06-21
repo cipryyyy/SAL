@@ -58,13 +58,16 @@
 #define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
 #define readPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
     @fn GPIO_Init
     @brief Initialize GPIOx interface
-    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
     @return None
 */
-void GPIO_Init(uint32_t GPIOx);
+void GPIO_Init();
 
 /**
     @fn GPIO_SetPinMode
@@ -95,5 +98,9 @@ void GPIO_SetPUPD(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t pupd);
     @return None
 */
 void GPIO_SetAF(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t AlternateFunction);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //GPIO_H

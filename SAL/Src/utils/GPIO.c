@@ -4,21 +4,11 @@
 
 #include "utils/GPIO.h"
 
-void GPIO_Init(uint32_t GPIOx) {
-    switch (GPIOx) {
-        case GPIOA:
-            AHB1_Enable(AHB1_GPIOA_EN);
-            break;
-        case GPIOB:
-            AHB1_Enable(AHB1_GPIOB_EN);
-            break;
-        case GPIOC:
-            AHB1_Enable(AHB1_GPIOC_EN);
-            break;
-        case GPIOD:
-            AHB1_Enable(AHB1_GPIOD_EN);
-            break;
-    }
+void GPIO_Init() {
+    AHB1_Enable(AHB1_GPIOA_EN);
+    AHB1_Enable(AHB1_GPIOB_EN);
+    AHB1_Enable(AHB1_GPIOC_EN);
+    AHB1_Enable(AHB1_GPIOD_EN);
 }
 
 void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode) {

@@ -11,8 +11,8 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "CMake: build",
-            "command": "cmake --build build",
+            "label": "Compile project",
+            "command": "rm -rf build && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi-toolchain.cmake .. && cmake --build .",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -21,13 +21,15 @@
         },
         {
             "type": "shell",
-            "label": "CubeProg: Flash project (SWD)",
+            "label": "Flash project",
             "command": "STM32_Programmer_CLI",
             "args": [
                 "--connect",
                 "port=swd",
+                "mode=UR",
+                "reset=HwRst",
                 "--download",
-                "${workspaceFolder}/build/main",
+                "${workspaceFolder}/build/main.hex",
                 "-hardRst",
                 "-rst",
                 "--start"
@@ -38,11 +40,11 @@
             "problemMatcher": []
         },
         {
-            "label": "Build + Flash",
+            "label": "Compile + Flash",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "CMake: build",
-                "CubeProg: Flash project (SWD)"
+                "Compile project",
+                "Flash project"
             ],
             "problemMatcher": [],
             "group": {

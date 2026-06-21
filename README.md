@@ -23,29 +23,18 @@ Designed for STM32NUCLEO-F411
 ## Usage
 
 ### Compile
-For the first time, run this:
-```bash
-mkdir build && cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-eabi-toolchain.cmake ..
-cmake --build .
-arm-none-eabi-objcopy -O binary main main.bin
-cd ..
-```
-
-Then just run:
-
-```bash
-cd build
-cmake --build .
-arm-none-eabi-objcopy -O binary main main.bin
-cd ..
-```
+From Visual Studio Code:
+1. Install `CMake Tools` extension
+2. Open the `CMAKE` extension from the sidebar
+3. In `Pinned Commands -> Run Tasks` run `Compile project`
 
 ### Flash the firmware
 From VSCode on macOS:
 1. Install `CMake Tools` extension
 2. Open the `CMAKE` extension from the sidebar
-3. In `Pinned Commands -> Run Tasks` run `CubeProg: Flash project (SWD)`
+3. In `Pinned Commands -> Run Tasks` run `Flash Project`
+
+Optionally, there's also the `Compile + Flash` command.
 
 From cubeProgrammer:
 1. Select the following settings:

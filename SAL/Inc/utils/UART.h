@@ -33,7 +33,15 @@
 
 #define BAUDRATE 115200
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void UART2_Init();
 void UART2_WriteChar(char c);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //UART_H

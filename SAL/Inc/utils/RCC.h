@@ -22,8 +22,6 @@
 #define RCC_APB1ENR               *(volatile uint32_t *)(RCC_BASE + 0x40)
 #define RCC_APB2ENR               *(volatile uint32_t *)(RCC_BASE + 0x44)
 
-
-
 // AHB1 controls
 #define AHB1_Enable(control_bit)  (RCC_AHB1ENR |=  control_bit)
 #define AHB1_Disable(control_bit) (RCC_AHB1ENR &= ~control_bit)
@@ -92,6 +90,10 @@
 #define HSE_BYP                   (1 << 18)   // Bypass, only for squared signals
 #define HSE_ON                    (1 << 16)   // Activate HSE
 #define HSE_RDY                   (1 << 17)   // HSE status
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
     @fn SysCLK_Init
@@ -172,5 +174,9 @@ uint32_t get_APB1_prescaler();
     @return APB2_prescaler
 */
 uint32_t get_APB2_prescaler();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //RCC_H
