@@ -13,12 +13,19 @@ Designed for STM32NUCLEO-F411
 │   │   ├── Main files
 │   │   └── utils
 │   │       ├── Utilities source code
-│   ├── crt.s          <- Startup file
-│   └── linker.ld      <- Linker file
+│   ├── crt.s                             <- Startup file
+│   └── linker.ld                         <- Linker file
 ├── build
 │   ├── objects and binaries produced
-└── CMakeLists.txt
+├── CMakeLists.txt                        <- CMAKE file
+├── arm-none-eabi-toolchain.cmake         <- Toolchain 
+└── setup.py                           <- Setup file (Not enabled yet)
 ```
+
+## Dependencies
+* [CMake](https://cmake.org/download/) version 3.10 or later
+* [arm-none-eabi-gcc](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) version 15.2.1 or later
+* [STM32Programmer](https://www.st.com/en/development-tools/stm32cubeprog.html) added to PATH
 
 ## Usage
 
@@ -59,3 +66,4 @@ From cubeProgrammer:
 ## TODO
 - [ ] Complete the UART
 - [ ] Optimize usability with `tasks.json`
+- [ ] Complete `setup.py`

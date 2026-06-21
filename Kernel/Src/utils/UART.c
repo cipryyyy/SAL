@@ -27,8 +27,10 @@ void UART2_Init() {
     USARTx_CR1(USART2_BASE) |= (0b1 << CR1_TX_EN_SHIFT) | (0b1 << CR1_UART_EN_SHIFT);
 }
 
-void UART2_WriteChar(char c) {
-    while ( !(USARTx_SR(USART2_BASE) & (1 << 7)) ) {
+void UART_Transmit(uint32_t UART_address, uint8_t* data, uint16_t data_length) {
+    for (int i = 0; i < data_length; i++) {
+        while ( !(USARTx_SR(UART_address) & (1 << 7))) {
+        }
+        USARTx_DR(UART_address) = *(data +i);
     }
-    USARTx_DR(USART2_BASE) = c;
 }

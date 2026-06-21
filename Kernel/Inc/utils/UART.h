@@ -31,14 +31,29 @@
 #define PCE_DISABLE 0b0
 #define PCE_ENABLE 0b1
 
+//BAUDRATE
 #define BAUDRATE 115200
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/**
+    @fn UART2_Init
+    @brief Initalize UART2
+    @return None
+*/
 void UART2_Init();
-void UART2_WriteChar(char c);
+
+/**
+    @fn UART_Transmit
+    @brief Initalize UART2
+    @param UART_address address, in container.h
+    @param data Pointer to the data
+    @param data_length Amount of data to transmit
+    @return None
+*/
+void UART_Transmit(uint32_t UART_address, uint8_t* data, uint16_t data_length);
 
 #ifdef __cplusplus
 }

@@ -56,7 +56,7 @@
 #define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_ODR(GPIOx) |= (1 << GPIO_PIN))
 #define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) &= ~(1 << GPIO_PIN))
 #define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
-#define readPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
+#define ReadPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
 
 #ifdef __cplusplus
 extern "C" {
