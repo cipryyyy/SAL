@@ -13,13 +13,11 @@ void UART2_Init() {
     APB1_Enable(APB1_USART2_EN);
 
     uint32_t APB1_frequency = get_sysCLK()/(get_AHB1_prescaler() * get_APB1_prescaler());
-    uint16_t DIV_Mantissa = (uint16_t)(APB1_frequency/(16 * BAUDRATE));
-    uint8_t  DIV_Fraction = (uint8_t)(((APB1_frequency/(16 * BAUDRATE)) - DIV_Mantissa) * 16);
 
-    uint16_t DIV_Value = (DIV_Mantissa << BRR_MANTISSA_SHIFT | DIV_Fraction << BRR_FRACTION_SHIFT);
+    uint32_t usartdiv = (APB1_frequency + (BAUDRATE / 2)) / BAUDRATE; 
 
     USARTx_BRR(USART2_BASE) &= ~(0xFFFFUL);
-    USARTx_BRR(USART2_BASE) |= DIV_Value;
+    USARTx_BRR(USART2_BASE) |= usartdiv;
 
     USARTx_CR1(USART2_BASE) |= (WORD_8BIT << CR1_WORD_SHIFT) | (PCE_DISABLE << CR1_PARITY_SHIFT);
     USARTx_CR2(USART2_BASE) &= ~(0b11 << CR2_STOP_BIT_SHIFT);
@@ -29,8 +27,8 @@ void UART2_Init() {
 
 void UART_Transmit(uint32_t UART_address, uint8_t* data, uint16_t data_length) {
     for (int i = 0; i < data_length; i++) {
-        while ( !(USARTx_SR(UART_address) & (1 << 7))) {
-        }
-        USARTx_DR(UART_address) = *(data +i);
+        while ( !(USARTx_SR(UART_address) & (1 << 7))) {}
+        USARTx_DR(UART_address) = data[i];
     }
+    while (!(USARTx_SR(UART_address) & (1 << 6))); 
 }

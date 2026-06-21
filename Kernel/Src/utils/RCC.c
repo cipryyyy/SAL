@@ -51,7 +51,7 @@ void SysCLK_Init(uint8_t PLLM, uint16_t PLLN, uint8_t PLLP) {
 
     while (((RCC_CFGR >> 2) & 0x03) != 0b10);
 
-    if ((sysCLK * APB1_prescaler) > 50000000) {
+    if (sysCLK > 50000000) {
         APB1_SetPrescaler(APB_PRESCALER_2);
     } else {
         APB1_SetPrescaler(APB_PRESCALER_1);

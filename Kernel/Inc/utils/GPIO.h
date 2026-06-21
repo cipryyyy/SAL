@@ -33,29 +33,44 @@
 #define GPIO_PIN_14         0xE
 #define GPIO_PIN_15         0xF
 
+// GPIO Registers
+#define GPIOx_MODER(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x00))
+#define GPIOx_OTYPER(GPIOx)  (*(volatile uint32_t *)(GPIOx + 0x04))
+#define GPIOx_OSPEEDR(GPIOx) (*(volatile uint32_t *)(GPIOx + 0x08))
+#define GPIOx_PUPDR(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x0C))
+#define GPIOx_IDR(GPIOx)     (*(volatile uint32_t *)(GPIOx + 0x10))
+#define GPIOx_ODR(GPIOx)     (*(volatile uint32_t *)(GPIOx + 0x14))
+#define GPIOx_BSSR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x18))
+#define GPIOx_LCKR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x1C))
+#define GPIOx_AFRL(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x20))
+#define GPIOx_AFRH(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x24))
+
 // GPIO MODES 
 #define GPIO_MODE_INPUT     0x0UL
 #define GPIO_MODE_OUTPUT    0x1UL
 #define GPIO_MODE_ALTERNATE 0x2UL
 #define GPIO_MODE_ANALOG    0x3UL
 
-// GPIO PU and PD
+// GPIO TYPE
+#define GPIO_PUSH_PULL      0x0UL
+#define GPIO_OPEN_DRAIN     0x1UL
+
+// GPIO SPEED
+#define GPIO_SPEED_LOW      0x0UL
+#define GPIO_SPEED_MEDIUM   0x1UL
+#define GPIO_SPEED_FAST     0x2UL
+#define GPIO_SPEED_HIGH     0x3UL
+
+// GPIO PullUp and PullDown
 #define GPIO_NOPULL         0x0UL
 #define GPIO_PULLUP         0x1UL
 #define GPIO_PULLDOWN       0x2UL
 
-// GPIO Registers
-#define GPIOx_MODER(GPIOx)  (*(volatile uint32_t *)(GPIOx + 0x00))
-#define GPIOx_PUPDR(GPIOx)  (*(volatile uint32_t *)(GPIOx + 0x0C))
-#define GPIOx_IDR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x10))
-#define GPIOx_ODR(GPIOx)    (*(volatile uint32_t *)(GPIOx + 0x14))
-#define GPIOx_AFRL(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x20))
-#define GPIOx_AFRH(GPIOx)   (*(volatile uint32_t *)(GPIOx + 0x24))
-
 // Inline methods
-#define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_ODR(GPIOx) |= (1 << GPIO_PIN))
-#define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) &= ~(1 << GPIO_PIN))
+#define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_BSSR(GPIOx) |= (1 << GPIO_PIN))
+#define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_BSSR(GPIOx) |= (1 << (GPIO_PIN + 16)))
 #define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
+#define LockPin(GPIOx, GPIO_PIN)    (GPIOx_LCKR(GPIOx) ^= (1 << GPIO_PIN))
 #define ReadPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
 
 #ifdef __cplusplus
@@ -74,10 +89,30 @@ void GPIO_Init();
     @brief Set Pin Mode
     @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
     @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
-    @param mode Pin Mode
+    @param mode Pin mode
     @return None
 */
 void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode);
+
+/**
+    @fn GPIO_SetPinType
+    @brief Set Pin Type
+    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
+    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
+    @param type Pin type
+    @return None
+*/
+void GPIO_SetPinType(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t type);
+
+/**
+    @fn GPIO_SetPinSpeed
+    @brief Set Pin Speed
+    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
+    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
+    @param speed Pin speed
+    @return None
+*/
+void GPIO_SetPinSpeed(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t speed);
 
 /**
     @fn GPIO_SetPUPD
@@ -88,6 +123,15 @@ void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode);
     @return None
 */
 void GPIO_SetPUPD(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t pupd);
+
+/**
+    @fn GPIO_LockPin
+    @brief Lock Pin
+    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
+    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
+    @return None
+*/
+void GPIO_LockPin(uint32_t GPIOx, uint8_t GPIO_PIN);
 
 /**
     @fn GPIO_SetAF
