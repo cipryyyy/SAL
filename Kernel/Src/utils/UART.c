@@ -3,6 +3,7 @@
 */
 
 #include "utils/UART.h"
+#include "container.h"
 
 //DIV = f_CLK/(8* (2 - OVER8) * baudrate)
 
@@ -10,8 +11,8 @@
 //TODO Make it support all configs (just 8N1 now)
 void UART2_Init(uint32_t baudrate) {
     //Setup pins
-    GPIO_SetAF(GPIOA, GPIO_PIN_2, PIN_AF_USART2);
-    GPIO_SetAF(GPIOA, GPIO_PIN_3, PIN_AF_USART2);
+    GPIO_SetAF(GPIOA, GPIO_PIN_2, PA2_USART2_TX);
+    GPIO_SetAF(GPIOA, GPIO_PIN_3, PA3_USART2_RX);
 
     //TODO Improve calculation
     uint32_t APB1_frequency = get_sysCLK()/(get_AHB1_prescaler() * get_APB1_prescaler());
