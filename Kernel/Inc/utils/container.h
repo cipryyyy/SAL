@@ -14,7 +14,7 @@
 #define USART2_BASE     0x40004400
 #define USART6_BASE     0x40011400
 
-// IPD
-#define OPERATION_OK
+// IPC
+#define OPERATION_OK    0
 
 #endif //CONTAINER_H

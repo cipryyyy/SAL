@@ -67,11 +67,11 @@
 #define GPIO_PULLDOWN       0x2UL
 
 // Inline methods
-#define SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_BSSR(GPIOx) |= (1 << GPIO_PIN))
-#define SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_BSSR(GPIOx) |= (1 << (GPIO_PIN + 16)))
-#define TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
-#define LockPin(GPIOx, GPIO_PIN)    (GPIOx_LCKR(GPIOx) ^= (1 << GPIO_PIN))
-#define ReadPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
+#define GPIO_SetPinHIGH(GPIOx, GPIO_PIN) (GPIOx_BSSR(GPIOx) |= (1 << GPIO_PIN))
+#define GPIO_SetPinLOW(GPIOx, GPIO_PIN)  (GPIOx_BSSR(GPIOx) |= (1 << (GPIO_PIN + 16)))
+#define GPIO_TogglePin(GPIOx, GPIO_PIN)  (GPIOx_ODR(GPIOx) ^= (1 << GPIO_PIN))
+#define GPIO_LockPin(GPIOx, GPIO_PIN)    (GPIOx_LCKR(GPIOx) |= (1 << GPIO_PIN))
+#define GPIO_ReadPin(GPIOx, GPIO_PIN)    ((uint8_t)(~((GPIOx_IDR(GPIOx)) >> (GPIO_PIN)) & 1U))
 
 #ifdef __cplusplus
 extern "C" {
@@ -123,15 +123,6 @@ void GPIO_SetPinSpeed(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t speed);
     @return None
 */
 void GPIO_SetPUPD(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t pupd);
-
-/**
-    @fn GPIO_LockPin
-    @brief Lock Pin
-    @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
-    @param GPIO_PIN Pin number in register (e.g. GPIOA, GPIOB...)
-    @return None
-*/
-void GPIO_LockPin(uint32_t GPIOx, uint8_t GPIO_PIN);
 
 /**
     @fn GPIO_SetAF

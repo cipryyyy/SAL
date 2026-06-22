@@ -4,6 +4,7 @@
 
 #include "utils/RCC.h"
 
+uint32_t ticks = 0;
 uint32_t sysCLK = 0;
 uint32_t AHB1_prescaler = 1;
 uint32_t APB1_prescaler = 1;
@@ -56,6 +57,11 @@ void SysCLK_Init(uint8_t PLLM, uint16_t PLLN, uint8_t PLLP) {
     } else {
         APB1_SetPrescaler(APB_PRESCALER_1);
     }
+
+    SYST_CTRL = 0;
+    SYST_LOAD = (sysCLK/1000) - 1;
+    SYST_VAL = 0;
+    SYST_CTRL = SYSTICK_CTRL_CLKSOURCE | SYSTICK_CTRL_TICKINT   | SYSTICK_CTRL_ENABLE;
 }
 
 void APB1_SetPrescaler(uint32_t prescaler) {
@@ -106,29 +112,8 @@ void AHB1_SetPrescaler(uint32_t prescaler) {
 void delay(uint32_t ms) {
     if (sysCLK == 0) return;
 
-    SYST_RVR = sysCLK/1000 - 1;
-    SYST_CVR = 0;
-    SYST_CSR = 0x05;
-
-    for (uint32_t i = 0; i < ms; i++) {
-        while (!(SYST_CSR & (1 << SYST_COUNT)));
-    }
-
-    SYST_CSR = 0;
-}
-
-void delay_microsecond(uint32_t us) {
-    if (sysCLK == 0) return;
-
-    SYST_RVR = sysCLK/1000000 - 1;
-    SYST_CVR = 0;
-    SYST_CSR = 0x05;
-
-    for (uint32_t i = 0; i < us; i++) {
-        while (!(SYST_CSR & (1 << SYST_COUNT)));
-    }
-
-    SYST_CSR = 0;
+    int32_t initialTick = getTick();
+    while (getTick() - initialTick < ms) {}
 }
 
 uint32_t get_sysCLK() {
@@ -145,4 +130,12 @@ uint32_t get_APB1_prescaler() {
 
 uint32_t get_APB2_prescaler() {
     return APB2_prescaler;
+}
+
+void SysTick_Handler(void) {
+    ticks++;
+}
+
+int getTick() {
+    return ticks;
 }

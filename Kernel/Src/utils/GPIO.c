@@ -38,6 +38,7 @@ void GPIO_SetPUPD(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t pupd)
 
 void GPIO_SetAF(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t AlternateFunction)
 {
+    GPIO_SetPinMode(GPIOx, GPIO_PIN, GPIO_MODE_ALTERNATE);
     if (GPIO_PIN < 8) {
         GPIOx_AFRL(GPIOx) &= ~(0b1111UL << (GPIO_PIN << 2));
         GPIOx_AFRL(GPIOx) |= (AlternateFunction << (GPIO_PIN << 2));

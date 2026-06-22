@@ -22,6 +22,12 @@
 #define RCC_APB1ENR               *(volatile uint32_t *)(RCC_BASE + 0x40)
 #define RCC_APB2ENR               *(volatile uint32_t *)(RCC_BASE + 0x44)
 
+// ARM SYST registers
+#define SYS_TICK_BASE             0xE000E010
+#define SYST_CTRL                 *(volatile uint32_t *)(SYS_TICK_BASE + 0x00)
+#define SYST_LOAD                 *(volatile uint32_t *)(SYS_TICK_BASE + 0x04)
+#define SYST_VAL                  *(volatile uint32_t *)(SYS_TICK_BASE + 0x08)
+
 // AHB1 controls
 #define AHB1_Enable(control_bit)  (RCC_AHB1ENR |=  control_bit)
 #define AHB1_Disable(control_bit) (RCC_AHB1ENR &= ~control_bit)
@@ -61,11 +67,10 @@
 #define AHB_PRESCALER_256         0b1110UL
 #define AHB_PRESCALER_512         0b1111UL
 
-// ARM SYST registers
-#define SYST_CSR                  *(volatile uint32_t *)(0xE000E010) // Control and Status
-#define SYST_RVR                  *(volatile uint32_t *)(0xE000E014) // Reload Value
-#define SYST_CVR                  *(volatile uint32_t *)(0xE000E018) // Current Value
-#define SYST_COUNT                16
+// SYSTick bits
+#define SYSTICK_CTRL_ENABLE    (1UL << 0)
+#define SYSTICK_CTRL_TICKINT   (1UL << 1)
+#define SYSTICK_CTRL_CLKSOURCE (1UL << 2)
 
 // PLL Controls
 #define PLLM_SHIFT                0
@@ -140,14 +145,6 @@ void APB2_SetPrescaler(uint32_t prescaler);
 void delay(uint32_t ms);
 
 /**
-    @fn delay_microsecond
-    @brief suspend operations
-    @param us microseconds to wait
-    @return None
-*/
-void delay_microsecond(uint32_t us);
-
-/**
     @fn get_sysCLK
     @brief Return system clock value
     @return sysCLK
@@ -174,6 +171,19 @@ uint32_t get_APB1_prescaler();
     @return APB2_prescaler
 */
 uint32_t get_APB2_prescaler();
+
+/**
+    @fn SysTick_Handler
+    @return None
+*/
+void SysTick_Handler(void);
+
+/**
+    @fn getTick
+    @brief Return ticks counter (milliseconds)
+    @return ticks
+*/
+int getTick();
 
 #ifdef __cplusplus
 }

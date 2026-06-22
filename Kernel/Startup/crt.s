@@ -8,9 +8,11 @@
 .global Default_Handler
 
 isr_functions:
-    @Internal handler
+    @StartUp Informations
     .word _endOfRAM                     @ End of RAM, start of stack
     .word _reset                        @ Reset
+
+    @Internal handler
     .word NMI_Handler                   @ Not Maskable Interrupt
     .word HardFault_Handler             @ Hard Fault
     .word MemManage_Handler             @ Memory management fault
