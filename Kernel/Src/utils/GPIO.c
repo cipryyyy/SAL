@@ -12,6 +12,14 @@ void GPIO_Init()
     AHB1_Enable(AHB1_GPIOD_EN);
 }
 
+void GPIO_DeInit()
+{
+    AHB1_Disable(AHB1_GPIOA_EN);
+    AHB1_Disable(AHB1_GPIOB_EN);
+    AHB1_Disable(AHB1_GPIOC_EN);
+    AHB1_Disable(AHB1_GPIOD_EN);
+}
+
 void GPIO_SetPinMode(uint32_t GPIOx, uint8_t GPIO_PIN, uint32_t mode)
 {
     GPIOx_MODER(GPIOx) &= ~(0b11UL << (GPIO_PIN << 1));

@@ -85,6 +85,13 @@ extern "C" {
 void GPIO_Init();
 
 /**
+    @fn GPIO_DeInit
+    @brief Deinitialize GPIOx interface
+    @return None
+*/
+void GPIO_DeInit();
+
+/**
     @fn GPIO_SetPinMode
     @brief Set Pin Mode
     @param GPIOx GPIO register (e.g. GPIOA, GPIOB...)
