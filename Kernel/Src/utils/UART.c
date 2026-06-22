@@ -10,8 +10,8 @@
 //TODO Make it support all configs (just 8N1 now)
 void UART2_Init(uint32_t baudrate) {
     //Setup pins
-    GPIO_SetAF(GPIOA, GPIO_PIN_2, 0x7);
-    GPIO_SetAF(GPIOA, GPIO_PIN_3, 0x7);
+    GPIO_SetAF(GPIOA, GPIO_PIN_2, PIN_AF_USART2);
+    GPIO_SetAF(GPIOA, GPIO_PIN_3, PIN_AF_USART2);
 
     //TODO Improve calculation
     uint32_t APB1_frequency = get_sysCLK()/(get_AHB1_prescaler() * get_APB1_prescaler());

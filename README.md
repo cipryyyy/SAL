@@ -1,5 +1,5 @@
 # SAL
-Designed for STM32NUCLEO-F411
+Abstraction layer designed for STM32F411RET6, for more informations [see the wiki](https://github.com/cipryyyy/SAL/wiki) of the project.
 
 ## Structure
 ```
@@ -62,8 +62,3 @@ From cubeProgrammer:
 1. Create the header in `SAL/Inc/`
 2. Create the source in `SAL/Src/`
 3. Add the path to the source in the `CMakeLists.txt` file, in `SOURCE_FILES`
-
-## TODO
-- [ ] Complete the UART
-- [ ] Optimize usability with `tasks.json`
-- [ ] Complete `setup.py`
