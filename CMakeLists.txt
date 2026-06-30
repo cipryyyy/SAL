@@ -15,6 +15,7 @@ set(SOURCE_FILES
     Kernel/Src/utils/GPIO.c
     Kernel/Src/utils/UART.c
     Kernel/Src/utils/RCC.c
+    Kernel/Src/utils/memory.c
 )
 add_executable(main ${SOURCE_FILES})
 set_target_properties(main PROPERTIES SUFFIX ".elf")       #Add .elf to the end of the file

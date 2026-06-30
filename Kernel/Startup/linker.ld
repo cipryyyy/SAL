@@ -49,4 +49,12 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .; 
   } > RAM
+
+  .heap :
+  {
+    . = ALIGN(4);
+    _sheap = .;
+    . = . + 0x2000;
+    _eheap = .;
+  } > RAM
 }
