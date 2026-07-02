@@ -3,7 +3,7 @@ ENTRY(_reset)
 
 /* Minimum heap and stack size */
 _min_heap_size = 0x400;
-_min_stack_size = 0x800;
+_stack_size = 0x800;
 
 /* F411 physical memory data */
 MEMORY
@@ -61,14 +61,31 @@ SECTIONS
     _ebss = .; 
   } > RAM
 
-  /* heap */
+  /* heap, I reserve AT LEAST _min_heap_size to it */
   .heap :
   {
     . = ALIGN(4);
     _sheap = .;
     . = . + _min_heap_size;
-    . = . + _min_stack_size;
     _eheap = .;
     . = ALIGN(4);
   } > RAM
+
+  /* safety region, this is where heap and stack meets, neither can cross it */
+  .safety :
+  {
+    . = ALIGN(32);
+    _ssafety = .;
+    . = . + 32;
+    _esafety = .;
+  } > RAM
+
+  .stack :
+  {
+    . = ALIGN(4);
+    _sstack = .;
+    . = . + (_stack_size - 32);
+    _estack = .;
+  } > RAM
+
 }

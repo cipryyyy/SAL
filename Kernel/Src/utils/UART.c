@@ -3,13 +3,14 @@
 */
 
 #include "utils/UART.h"
-#include "container.h"
 
 //DIV = f_CLK/(8* (2 - OVER8) * baudrate)
 
 //TODO Add general Init given UARTx
 //TODO Make it support all configs (just 8N1 now)
 void UART2_Init(uint32_t baudrate) {
+    APB1_Enable(APB1_USART2_EN);
+    
     //Setup pins
     GPIO_SetAF(GPIOA, GPIO_PIN_2, PA2_USART2_TX);
     GPIO_SetAF(GPIOA, GPIO_PIN_3, PA3_USART2_RX);

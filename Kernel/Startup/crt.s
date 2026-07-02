@@ -9,13 +9,13 @@
 
 isr_functions:
     @StartUp Informations
-    .word _endOfRAM                     @ End of RAM, start of stack
-    .word _reset                        @ Reset
+    .word _endOfRAM                     @ End of RAM, start of stack        0x0
+    .word _reset                        @ Reset                             0x4
 
     @Internal handler
-    .word NMI_Handler                   @ Not Maskable Interrupt
-    .word HardFault_Handler             @ Hard Fault
-    .word MemManage_Handler             @ Memory management fault
+    .word NMI_Handler                   @ Not Maskable Interrupt            0x8
+    .word HardFault_Handler             @ Hard Fault                        0xC
+    .word MemManage_Handler             @ Memory management fault           0x10
     .word BusFault_Handler              @ Bus Fault
     .word UsageFault_Handler            @ Usage Fault
     .word 0                             @ Reserved

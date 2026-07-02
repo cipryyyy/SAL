@@ -3,7 +3,9 @@
 int main(void) {
     SysCLK_Init(PLLM_DIVIDER(8), PLLN_MULTIPLIER(200), PLLP_DIVIDER_2);
     GPIO_Init();
-    UART2_Init(9600);
+    UART2_Init(115200);
+
+    MPU_limit_stack();
 
     GPIO_SetPinMode(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT);
 

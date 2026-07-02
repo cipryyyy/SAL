@@ -9,6 +9,7 @@
 #include "utils/GPIO.h"
 #include "utils/UART.h"
 #include "utils/RCC.h"
+#include "utils/memory.h"
 
 #include <string>
 
